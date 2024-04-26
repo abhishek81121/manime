@@ -8,12 +8,13 @@ import 'package:manime/firebase_options.dart';
 import 'package:manime/presentation/home/home.dart';
 import 'package:manime/presentation/login/login.dart';
 import 'package:manime/presentation/no_connection/no_connection.dart';
+import 'package:manime/presentation/search/search.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  print(dotenv.env['ANDROID_API_KEY']);
+
   runApp(const MyApp());
 }
 
@@ -35,6 +36,8 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+                backgroundColor: Color.fromARGB(255, 8, 142, 128)),
             filledButtonTheme: FilledButtonThemeData(
                 style: FilledButton.styleFrom(
                     backgroundColor: const Color(0xFFff2c55))),
@@ -48,7 +51,8 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) => const LoginScreen(),
             '/home': (context) => const HomePage(),
-            '/noConnection': (context) => const Noconnection()
+            '/noConnection': (context) => const Noconnection(),
+            '/home/search': (context) => const SearchManhwa(),
           }),
     );
   }
