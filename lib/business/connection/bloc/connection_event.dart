@@ -10,6 +10,7 @@ sealed class ConnectionEvent extends Equatable {
 
 class ConnectionListeningIntialize extends ConnectionEvent {}
 
+// ignore: must_be_immutable
 class ConnectionChanged extends ConnectionEvent {
   MyConnectionState myConnectionState;
   ConnectionChanged({
