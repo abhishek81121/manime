@@ -48,6 +48,7 @@ dependencies:
   json_annotation: ^4.8.1
   internet_connection_checker_plus: ^2.3.0
   transparent_image: ^2.0.1
+  flutter_typeahead: ^5.2.0
 
 dev_dependencies:
   flutter_test:

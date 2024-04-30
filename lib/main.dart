@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
     if (FirebaseAuth.instance.currentUser != null) {
       initialroute = '/home';
     }
-
     return BlocProvider(
       create: (context) =>
           ConnectionBloc()..add(ConnectionListeningIntialize()),

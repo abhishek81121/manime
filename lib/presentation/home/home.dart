@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,6 +10,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late final TextEditingController _controller;
+  int _lastLength = 0;
+  @override
+  void initState() {
+    _controller = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Future<bool> onWillPop(BuildContext context) async {
@@ -53,6 +68,24 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           appBar: AppBar(
             leading: Image.asset('assets/logo.png'),
+            title: TypeAheadField(
+              controller: _controller,
+              itemBuilder: (context, value) {
+                return ListTile(
+                  leading: Image.network('https://'),
+                );
+              },
+              onSelected: (value) {},
+              builder: (context, controller, focusNode) {
+                return TextField(
+                  focusNode: focusNode,
+                  controller: controller,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                  autofocus: true,
+                );
+              },
+              suggestionsCallback: (search) {},
+            ),
             actions: [
               IconButton(
                 icon: const Icon(
