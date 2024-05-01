@@ -110,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               await googleSingInProceure();
                           if (singinresult == null) {
                           } else {
+                            // ignore: use_build_context_synchronously
                             Navigator.pushNamed(context, '/home');
                           }
                         },

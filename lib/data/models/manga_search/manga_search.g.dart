@@ -37,58 +37,75 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
     };
 
 Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
-      Title.fromJson(json['title'] as Map<String, dynamic>),
-      (json['altTitles'] as List<dynamic>).map((e) => e as String).toList(),
-      json['description'] as String,
-      json['isLocked'] as bool,
-      Links.fromJson(json['links'] as Map<String, dynamic>),
-      json['originalLanguage'] as String,
-      json['lastVolume'] as String,
-      json['lastChapter'] as String,
-      json['publicationDemographic'] as String,
-      json['status'] as String,
-      json['year'] as int,
-      json['contentRating'] as String,
-      (json['tags'] as List<dynamic>)
-          .map((e) => Tags.fromJson(e as Map<String, dynamic>))
+      json['title'] == null
+          ? null
+          : Title.fromJson(json['title'] as Map<String, dynamic>),
+      json['description'] == null
+          ? null
+          : Description.fromJson(json['description'] as Map<String, dynamic>),
+      json['isLocked'] as bool?,
+      json['links'] == null
+          ? null
+          : Links.fromJson(json['links'] as Map<String, dynamic>),
+      json['originalLanguage'] as String?,
+      json['publicationDemographic'] as String?,
+      json['status'] as String?,
+      json['year'] as int?,
+      json['contentRating'] as String?,
+      (json['tags'] as List<dynamic>?)
+          ?.map((e) => Tags.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['state'] as String,
-      json['chapterNumbersResetOnNewVolume'] as bool,
-      json['createdAt'] as String,
-      json['updatedAt'] as String,
-      json['version'] as int,
-      (json['availableTranslatedLanguages'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-      json['latestUploadedChapter'] as String,
+      json['createdAt'] as String?,
+      json['updatedAt'] as String?,
+      json['latestUploadedChapter'] as String?,
     );
 
 Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
     <String, dynamic>{
       'title': instance.title,
-      'altTitles': instance.altTitles,
       'description': instance.description,
       'isLocked': instance.isLocked,
       'links': instance.links,
       'originalLanguage': instance.originalLanguage,
-      'lastVolume': instance.lastVolume,
-      'lastChapter': instance.lastChapter,
       'publicationDemographic': instance.publicationDemographic,
       'status': instance.status,
       'year': instance.year,
       'contentRating': instance.contentRating,
       'tags': instance.tags,
-      'state': instance.state,
-      'chapterNumbersResetOnNewVolume': instance.chapterNumbersResetOnNewVolume,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
-      'version': instance.version,
-      'availableTranslatedLanguages': instance.availableTranslatedLanguages,
       'latestUploadedChapter': instance.latestUploadedChapter,
     };
 
+Tags _$TagsFromJson(Map<String, dynamic> json) => Tags(
+      json['id'] as String?,
+      json['type'] as String?,
+      json['attributes'] == null
+          ? null
+          : TagAttributes.fromJson(json['attributes'] as Map<String, dynamic>),
+      (json['relationships'] as List<dynamic>?)
+          ?.map((e) => Relationships.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$TagsToJson(Tags instance) => <String, dynamic>{
+      'id': instance.id,
+      'type': instance.type,
+      'attributes': instance.attributes,
+      'relationships': instance.relationships,
+    };
+
+Description _$DescriptionFromJson(Map<String, dynamic> json) => Description(
+      en: json['en'] as String?,
+    );
+
+Map<String, dynamic> _$DescriptionToJson(Description instance) =>
+    <String, dynamic>{
+      'en': instance.en,
+    };
+
 Title _$TitleFromJson(Map<String, dynamic> json) => Title(
-      json['en'] as String,
+      en: json['en'] as String?,
     );
 
 Map<String, dynamic> _$TitleToJson(Title instance) => <String, dynamic>{
@@ -96,18 +113,18 @@ Map<String, dynamic> _$TitleToJson(Title instance) => <String, dynamic>{
     };
 
 Links _$LinksFromJson(Map<String, dynamic> json) => Links(
-      json['al'] as String,
-      json['ap'] as String,
-      json['bw'] as String,
-      json['kt'] as String,
-      json['mu'] as String,
-      json['nu'] as String,
-      json['amz'] as String,
-      json['cdj'] as String,
-      json['ebj'] as String,
-      json['mal'] as String,
-      json['raw'] as String,
-      json['engtl'] as String,
+      json['al'] as String?,
+      json['ap'] as String?,
+      json['bw'] as String?,
+      json['kt'] as String?,
+      json['mu'] as String?,
+      json['nu'] as String?,
+      json['amz'] as String?,
+      json['cdj'] as String?,
+      json['ebj'] as String?,
+      json['mal'] as String?,
+      json['raw'] as String?,
+      json['engtl'] as String?,
     );
 
 Map<String, dynamic> _$LinksToJson(Links instance) => <String, dynamic>{
@@ -125,30 +142,49 @@ Map<String, dynamic> _$LinksToJson(Links instance) => <String, dynamic>{
       'engtl': instance.engtl,
     };
 
-Tags _$TagsFromJson(Map<String, dynamic> json) => Tags(
-      json['id'] as String,
-      json['type'] as String,
-      Attributes.fromJson(json['attributes'] as Map<String, dynamic>),
-      (json['relationships'] as List<dynamic>)
-          .map((e) => Relationships.fromJson(e as Map<String, dynamic>))
-          .toList(),
+TagAttributes _$TagAttributesFromJson(Map<String, dynamic> json) =>
+    TagAttributes(
+      name: json['name'] == null
+          ? null
+          : TagName.fromJson(json['name'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$TagsToJson(Tags instance) => <String, dynamic>{
-      'id': instance.id,
-      'type': instance.type,
-      'attributes': instance.attributes,
-      'relationships': instance.relationships,
+Map<String, dynamic> _$TagAttributesToJson(TagAttributes instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };
+
+TagName _$TagNameFromJson(Map<String, dynamic> json) => TagName(
+      en: json['en'] as String?,
+    );
+
+Map<String, dynamic> _$TagNameToJson(TagName instance) => <String, dynamic>{
+      'en': instance.en,
     };
 
 Relationships _$RelationshipsFromJson(Map<String, dynamic> json) =>
     Relationships(
-      json['id'] as String,
-      json['type'] as String,
+      json['id'] as String?,
+      json['type'] as String?,
+      json['coverAttributes'] == null
+          ? null
+          : CoverAttributes.fromJson(
+              json['coverAttributes'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RelationshipsToJson(Relationships instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': instance.type,
+      'coverAttributes': instance.coverAttributes,
+    };
+
+CoverAttributes _$CoverAttributesFromJson(Map<String, dynamic> json) =>
+    CoverAttributes(
+      filename: json['filename'] as String?,
+    );
+
+Map<String, dynamic> _$CoverAttributesToJson(CoverAttributes instance) =>
+    <String, dynamic>{
+      'filename': instance.filename,
     };

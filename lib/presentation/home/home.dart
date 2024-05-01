@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:manime/data/models/manga_search/manga_search.dart';
+import 'package:manime/data/repository/manga_search/manga_search_repository.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,7 +13,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final TextEditingController _controller;
-  int _lastLength = 0;
   @override
   void initState() {
     _controller = TextEditingController();
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                 TextButton(
                   onPressed: () => SystemNavigator.pop(),
                   child: const Text(
-                    'Yes',
+                    "Yes",
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -69,10 +70,49 @@ class _HomePageState extends State<HomePage> {
           appBar: AppBar(
             leading: Image.asset('assets/logo.png'),
             title: TypeAheadField(
+              decorationBuilder: (context, child) {
+                return Material(
+                  color: const Color.fromARGB(255, 43, 41, 41),
+                  type: MaterialType.card,
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(8),
+                  child: child,
+                );
+              },
+              offset: Offset(0, 12),
+              constraints: BoxConstraints(maxHeight: 500),
               controller: _controller,
               itemBuilder: (context, value) {
-                return ListTile(
-                  leading: Image.network('https://'),
+                String fileName;
+                for (Relationships rel in value.relationships) {
+                  if (rel.type == 'cover_art') {
+                    fileName = rel.coverAttributes?.filename ?? 'No Image';
+                  }
+                }
+
+                return Column(
+                  children: [
+                    ListTile(
+                      isThreeLine: true,
+                      // leading: Image.network(
+                      //     "https://uploads.mangadex.org/covers/${value.id}/"),
+                      title: Text(
+                        value.attributes.title?.en ?? "No Title",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ListTileStyle.list,
+                      subtitle: Text(
+                        value.attributes.description?.en ?? "No Description",
+                        style: TextStyle(
+                            color: Colors.white,
+                            overflow: TextOverflow.ellipsis),
+                      ),
+                    ),
+                    const Divider(
+                      height: 20,
+                      thickness: 2,
+                    )
+                  ],
                 );
               },
               onSelected: (value) {},
@@ -84,7 +124,11 @@ class _HomePageState extends State<HomePage> {
                   autofocus: true,
                 );
               },
-              suggestionsCallback: (search) {},
+              suggestionsCallback: (search) async {
+                Manga manga = await MangaSearchRepository().mangaSearch(search);
+
+                return manga.data;
+              },
             ),
             actions: [
               IconButton(
