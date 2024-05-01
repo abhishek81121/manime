@@ -10,7 +10,7 @@ class MangaSearchBloc extends Bloc<MangaSearchEvent, MangaSearchState> {
   MangaSearchBloc() : super(MangaSearchInitial()) {
     on<MangaSearchEvent>((event, emit) async {
       emit(MangaSearching());
-      Manga manga = await MangaSearchRepository().MangaSearch(event.searchText);
+      Manga manga = await MangaSearchRepository().mangaSearch(event.searchText);
       emit(MangaSearchResult(manga: manga));
     });
   }
