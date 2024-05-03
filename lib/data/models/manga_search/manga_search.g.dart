@@ -166,25 +166,25 @@ Relationships _$RelationshipsFromJson(Map<String, dynamic> json) =>
     Relationships(
       json['id'] as String?,
       json['type'] as String?,
-      json['coverAttributes'] == null
+      json['attributes'] == null
           ? null
           : CoverAttributes.fromJson(
-              json['coverAttributes'] as Map<String, dynamic>),
+              json['attributes'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RelationshipsToJson(Relationships instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': instance.type,
-      'coverAttributes': instance.coverAttributes,
+      'attributes': instance.attributes,
     };
 
 CoverAttributes _$CoverAttributesFromJson(Map<String, dynamic> json) =>
     CoverAttributes(
-      filename: json['filename'] as String?,
+      fileName: json['fileName'] as String?,
     );
 
 Map<String, dynamic> _$CoverAttributesToJson(CoverAttributes instance) =>
     <String, dynamic>{
-      'filename': instance.filename,
+      'fileName': instance.fileName,
     };

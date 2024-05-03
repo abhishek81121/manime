@@ -138,9 +138,9 @@ class TagName {
 class Relationships {
   final String? id;
   final String? type;
-  final CoverAttributes? coverAttributes;
+  final CoverAttributes? attributes;
 
-  Relationships(this.id, this.type, this.coverAttributes);
+  Relationships(this.id, this.type, this.attributes);
 
   factory Relationships.fromJson(Map<String, dynamic> json) =>
       _$RelationshipsFromJson(json);
@@ -149,8 +149,8 @@ class Relationships {
 
 @JsonSerializable()
 class CoverAttributes {
-  final String? filename;
-  CoverAttributes({required this.filename});
+  final String? fileName;
+  CoverAttributes({required this.fileName});
   factory CoverAttributes.fromJson(Map<String, dynamic> json) =>
       _$CoverAttributesFromJson(json);
   Map<String, dynamic> toJson() => _$CoverAttributesToJson(this);

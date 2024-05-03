@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:manime/data/models/manga_search/manga_search.dart';
 import 'package:manime/data/repository/manga_search/manga_search_repository.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final TextEditingController _controller;
+  late final focusnode = FocusNode();
+  String fileName = "";
   @override
   void initState() {
     _controller = TextEditingController();
@@ -22,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     _controller.dispose();
+    focusnode.dispose();
     super.dispose();
   }
 
@@ -83,31 +89,90 @@ class _HomePageState extends State<HomePage> {
               constraints: BoxConstraints(maxHeight: 500),
               controller: _controller,
               itemBuilder: (context, value) {
-                String fileName;
                 for (Relationships rel in value.relationships) {
                   if (rel.type == 'cover_art') {
-                    fileName = rel.coverAttributes?.filename ?? 'No Image';
+                    fileName = rel.attributes?.fileName ?? 'No Image';
+                    print(
+                        'https://uploads.mangadex.org/covers/${value.id}/${fileName}');
                   }
                 }
 
                 return Column(
                   children: [
-                    ListTile(
-                      isThreeLine: true,
-                      // leading: Image.network(
-                      //     "https://uploads.mangadex.org/covers/${value.id}/"),
-                      title: Text(
-                        value.attributes.title?.en ?? "No Title",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      style: ListTileStyle.list,
-                      subtitle: Text(
-                        value.attributes.description?.en ?? "No Description",
-                        style: TextStyle(
-                            color: Colors.white,
-                            overflow: TextOverflow.ellipsis),
-                      ),
-                    ),
+                    // ListTile(
+                    //   isThreeLine: true,
+                    //   leading: Image.network(
+                    //       "https://uploads.mangadex.org/covers/${value.id}/$fileName.256.jpg"),
+                    //   title: Text(
+                    //     value.attributes.title?.en ?? "No Title",
+                    //     style: TextStyle(color: Colors.white),
+                    //   ),
+                    //   style: ListTileStyle.list,
+                    //   subtitle: Text(
+                    //     value.attributes.description?.en ?? "No Description",
+                    //     style: TextStyle(
+                    //         color: Colors.white,
+                    //         overflow: TextOverflow.ellipsis),
+                    //   ),
+                    // ),
+                    Container(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        child: Card(
+                          color: Color.fromARGB(255, 58, 56, 56),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2,
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: FadeInImage.memoryNetwork(
+                                    image:
+                                        "https://uploads.mangadex.org/covers/${value.id}/$fileName",
+                                    placeholder: kTransparentImage,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      child: Text(
+                                        value.attributes.title?.en ??
+                                            "No Title",
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                        overflow: TextOverflow.clip,
+                                        softWrap: true,
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      child: Text(
+                                        maxLines: 4,
+                                        value.attributes.description?.en ??
+                                            "No Description",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        )),
                     const Divider(
                       height: 20,
                       thickness: 2,
@@ -116,12 +181,13 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               onSelected: (value) {},
+              focusNode: focusnode,
               builder: (context, controller, focusNode) {
                 return TextField(
                   focusNode: focusNode,
                   controller: controller,
                   style: const TextStyle(color: Colors.white, fontSize: 20),
-                  autofocus: true,
+                  autofocus: false,
                 );
               },
               suggestionsCallback: (search) async {
@@ -137,7 +203,11 @@ class _HomePageState extends State<HomePage> {
                   size: 35,
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/home/search');
+                  if (focusnode.hasFocus) {
+                    Navigator.pushNamed(context, '/home/search');
+                  } else {
+                    focusnode.requestFocus();
+                  }
                 },
               ),
             ],

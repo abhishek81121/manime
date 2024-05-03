@@ -8,7 +8,11 @@ part 'connection_state.dart';
 class ConnectionBloc extends Bloc<ConnectionEvent, MyConnectionState> {
   ConnectionBloc() : super(ConnectionInitial()) {
     on<ConnectionListeningIntialize>((event, emit) {
-      InternetConnection().onStatusChange.listen((InternetStatus status) {
+      InternetConnection.createInstance(
+        customCheckOptions: [
+          InternetCheckOption(uri: Uri.parse('https://google.com')),
+        ],
+      ).onStatusChange.listen((InternetStatus status) {
         switch (status) {
           case InternetStatus.connected:
             add(ConnectionChanged(myConnectionState: ConnectionSucess()));

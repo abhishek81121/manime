@@ -6,10 +6,18 @@ class MangaSearchRepository {
 
   Future<Manga> mangaSearch(String mangaSearchText) async {
     final dio = Dio();
-    Response response = await dio.get("https://api.mangadex.org/manga",
-        queryParameters: {'title': mangaSearchText, 'includes[]': 'cover_art'});
+    Response response = await dio.get(
+        "https://api.mangadex.org/manga?includes[]=cover_art",
+        queryParameters: {'title': mangaSearchText});
 
     if (response.statusCode == 200) {
+      if (Manga.fromJson(response.data).data.isEmpty) {
+      } else {
+        for (Relationships rel
+            in Manga.fromJson(response.data).data[0].relationships) {
+          print(rel.attributes?.fileName);
+        }
+      }
       return Manga.fromJson(response.data);
     } else {
       return Manga("", response.statusCode.toString(), []);
