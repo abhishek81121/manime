@@ -11,13 +11,6 @@ class MangaSearchRepository {
         queryParameters: {'title': mangaSearchText});
 
     if (response.statusCode == 200) {
-      if (Manga.fromJson(response.data).data.isEmpty) {
-      } else {
-        for (Relationships rel
-            in Manga.fromJson(response.data).data[0].relationships) {
-          print(rel.attributes?.fileName);
-        }
-      }
       return Manga.fromJson(response.data);
     } else {
       return Manga("", response.statusCode.toString(), []);

@@ -2,14 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:manime/business/connection/bloc/connection_bloc.dart';
 import 'package:manime/firebase_options.dart';
 import 'package:manime/presentation/home/home.dart';
 import 'package:manime/presentation/login/login.dart';
+import 'package:manime/presentation/manga_info/manga_info.dart';
 import 'package:manime/presentation/no_connection/no_connection.dart';
-import 'package:manime/presentation/search/search.dart';
 
 Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -49,8 +51,8 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) => const LoginScreen(),
             '/home': (context) => const HomePage(),
+            '/home/mangainfo': (context) => const MangaInfo(),
             '/noConnection': (context) => const Noconnection(),
-            '/home/search': (context) => const SearchManhwa(),
           }),
     );
   }

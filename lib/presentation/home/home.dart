@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:manime/data/models/manga_search/manga_search.dart';
 import 'package:manime/data/repository/manga_search/manga_search_repository.dart';
@@ -78,47 +76,29 @@ class _HomePageState extends State<HomePage> {
             title: TypeAheadField(
               decorationBuilder: (context, child) {
                 return Material(
-                  color: const Color.fromARGB(255, 43, 41, 41),
+                  color: const Color.fromARGB(255, 38, 37, 37),
                   type: MaterialType.card,
                   elevation: 4,
                   borderRadius: BorderRadius.circular(8),
                   child: child,
                 );
               },
-              offset: Offset(0, 12),
-              constraints: BoxConstraints(maxHeight: 500),
+              offset: const Offset(0, 12),
+              constraints: const BoxConstraints(maxHeight: 500),
               controller: _controller,
               itemBuilder: (context, value) {
                 for (Relationships rel in value.relationships) {
                   if (rel.type == 'cover_art') {
                     fileName = rel.attributes?.fileName ?? 'No Image';
-                    print(
-                        'https://uploads.mangadex.org/covers/${value.id}/${fileName}');
                   }
                 }
 
                 return Column(
                   children: [
-                    // ListTile(
-                    //   isThreeLine: true,
-                    //   leading: Image.network(
-                    //       "https://uploads.mangadex.org/covers/${value.id}/$fileName.256.jpg"),
-                    //   title: Text(
-                    //     value.attributes.title?.en ?? "No Title",
-                    //     style: TextStyle(color: Colors.white),
-                    //   ),
-                    //   style: ListTileStyle.list,
-                    //   subtitle: Text(
-                    //     value.attributes.description?.en ?? "No Description",
-                    //     style: TextStyle(
-                    //         color: Colors.white,
-                    //         overflow: TextOverflow.ellipsis),
-                    //   ),
-                    // ),
-                    Container(
+                    SizedBox(
                         height: MediaQuery.of(context).size.height * 0.2,
                         child: Card(
-                          color: Color.fromARGB(255, 58, 56, 56),
+                          color: const Color.fromARGB(255, 51, 50, 50),
                           child: Row(
                             children: [
                               SizedBox(
@@ -180,7 +160,13 @@ class _HomePageState extends State<HomePage> {
                   ],
                 );
               },
-              onSelected: (value) {},
+              onSelected: (value) {
+                Navigator.pushNamed(context, '/home/mangainfo', arguments: {
+                  'MangaId': value.id,
+                  'ImageUrl':
+                      "https://uploads.mangadex.org/covers/${value.id}/$fileName"
+                });
+              },
               focusNode: focusnode,
               builder: (context, controller, focusNode) {
                 return TextField(
@@ -203,11 +189,7 @@ class _HomePageState extends State<HomePage> {
                   size: 35,
                 ),
                 onPressed: () {
-                  if (focusnode.hasFocus) {
-                    Navigator.pushNamed(context, '/home/search');
-                  } else {
-                    focusnode.requestFocus();
-                  }
+                  focusnode.requestFocus();
                 },
               ),
             ],
