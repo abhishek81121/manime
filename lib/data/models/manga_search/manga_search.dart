@@ -31,6 +31,7 @@ class Data {
 @JsonSerializable()
 class Attributes {
   final Title? title;
+  final List<AltTitles?> altTitles;
   final Description? description;
   final bool? isLocked;
   final Links? links;
@@ -45,6 +46,7 @@ class Attributes {
   final String? latestUploadedChapter;
 
   Attributes(
+      this.altTitles,
       this.title,
       this.description,
       this.isLocked,
@@ -62,6 +64,15 @@ class Attributes {
   factory Attributes.fromJson(Map<String, dynamic> json) =>
       _$AttributesFromJson(json);
   Map<String, dynamic> toJson() => _$AttributesToJson(this);
+}
+
+@JsonSerializable()
+class AltTitles {
+  final String? en;
+  AltTitles(this.en);
+  factory AltTitles.fromJson(Map<String, dynamic> json) =>
+      _$AltTitlesFromJson(json);
+  Map<String, dynamic> toJson() => _$AltTitlesToJson(this);
 }
 
 @JsonSerializable()

@@ -37,6 +37,10 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
     };
 
 Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
+      (json['altTitles'] as List<dynamic>)
+          .map((e) =>
+              e == null ? null : AltTitles.fromJson(e as Map<String, dynamic>))
+          .toList(),
       json['title'] == null
           ? null
           : Title.fromJson(json['title'] as Map<String, dynamic>),
@@ -63,6 +67,7 @@ Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
 Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
     <String, dynamic>{
       'title': instance.title,
+      'altTitles': instance.altTitles,
       'description': instance.description,
       'isLocked': instance.isLocked,
       'links': instance.links,
@@ -75,6 +80,14 @@ Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
       'latestUploadedChapter': instance.latestUploadedChapter,
+    };
+
+AltTitles _$AltTitlesFromJson(Map<String, dynamic> json) => AltTitles(
+      json['en'] as String?,
+    );
+
+Map<String, dynamic> _$AltTitlesToJson(AltTitles instance) => <String, dynamic>{
+      'en': instance.en,
     };
 
 Tags _$TagsFromJson(Map<String, dynamic> json) => Tags(

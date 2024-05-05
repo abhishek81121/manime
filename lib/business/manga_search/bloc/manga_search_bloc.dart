@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:manime/data/models/manga_search/manga_search.dart';
 import 'package:manime/data/repository/manga_search/manga_search_repository.dart';

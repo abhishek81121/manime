@@ -16,9 +16,12 @@ class _HomePageState extends State<HomePage> {
   late final TextEditingController _controller;
   late final focusnode = FocusNode();
   String fileName = "";
+  String title = "";
+
   @override
   void initState() {
     _controller = TextEditingController();
+
     super.initState();
   }
 
@@ -92,6 +95,16 @@ class _HomePageState extends State<HomePage> {
                     fileName = rel.attributes?.fileName ?? 'No Image';
                   }
                 }
+                if (value.attributes.title?.en == null) {
+                  for (AltTitles? alt in value.attributes.altTitles) {
+                    if (alt?.en != null) {
+                      title = alt?.en ?? 'No Title';
+                      break;
+                    }
+                  }
+                } else {
+                  title = value.attributes.title?.en as String;
+                }
 
                 return Column(
                   children: [
@@ -123,8 +136,7 @@ class _HomePageState extends State<HomePage> {
                                       width: MediaQuery.of(context).size.width *
                                           0.4,
                                       child: Text(
-                                        value.attributes.title?.en ??
-                                            "No Title",
+                                        title,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 16,
@@ -161,10 +173,29 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               onSelected: (value) {
+                String filenamepu = "";
+                String titlepu = "";
+                if (value.attributes.title?.en == null) {
+                  for (AltTitles? alt in value.attributes.altTitles) {
+                    if (alt?.en != null) {
+                      titlepu = alt?.en ?? 'No Title';
+                      break;
+                    }
+                  }
+                } else {
+                  titlepu = value.attributes.title?.en as String;
+                }
+                for (Relationships rel in value.relationships) {
+                  if (rel.type == 'cover_art') {
+                    filenamepu = rel.attributes?.fileName ?? 'No Image';
+                  }
+                }
+
                 Navigator.pushNamed(context, '/home/mangainfo', arguments: {
                   'MangaId': value.id,
                   'ImageUrl':
-                      "https://uploads.mangadex.org/covers/${value.id}/$fileName"
+                      "https://uploads.mangadex.org/covers/${value.id}/$filenamepu",
+                  'title': titlepu
                 });
               },
               focusNode: focusnode,
