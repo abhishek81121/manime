@@ -10,7 +10,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     on<AuthEvent>((event, emit) async {
       emit(AuthLoading());
-      final storage = FlutterSecureStorage();
+      const storage = FlutterSecureStorage();
 
       if (await storage.read(key: 'access_token') != null &&
           await storage.read(key: 'access_token') != "") {

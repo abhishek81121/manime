@@ -7,7 +7,7 @@ class AuthInit {
   AuthInit();
   Future<Auth> authinit() async {
     final dio = Dio();
-    final storage = FlutterSecureStorage();
+    const storage = FlutterSecureStorage();
 
     Response response = await dio.post(
         'https://auth.mangadex.org/realms/mangadex/protocol/openid-connect/token',
