@@ -39,7 +39,7 @@ class _MangaInfoBodyState extends State<MangaInfoBody> {
               height: height * 0.04,
             ),
             SizedBox(
-              height: height * 0.3,
+              height: height * 0.25,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: FadeInImage.memoryNetwork(
