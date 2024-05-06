@@ -14,6 +14,7 @@ class ListChapterBloc extends Bloc<ListChapterEvent, ListChapterState> {
         emit(ListChapterLoading());
         ListChapter listChapter = await ChapterListSearch()
             .searchChapter(event.mangaId, event.offset);
+        print("done");
         emit(ListedChapters(listChapter: listChapter));
       },
     );
