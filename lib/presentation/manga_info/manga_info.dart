@@ -188,6 +188,7 @@ class _MangaInfoState extends State<MangaInfo> {
             imageUrl: arg['ImageUrl'],
             mangaId: arg['MangaId'],
             title: arg['title'],
+            description: arg['description'],
           ),
         ));
   }

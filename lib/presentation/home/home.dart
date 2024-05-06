@@ -195,7 +195,8 @@ class _HomePageState extends State<HomePage> {
                   'MangaId': value.id,
                   'ImageUrl':
                       "https://uploads.mangadex.org/covers/${value.id}/$filenamepu",
-                  'title': titlepu
+                  'title': titlepu,
+                  'description': value.attributes.description?.en
                 });
               },
               focusNode: focusnode,
