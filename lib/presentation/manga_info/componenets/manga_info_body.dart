@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MangaInfoBody extends StatefulWidget {
@@ -53,7 +52,7 @@ class _MangaInfoBodyState extends State<MangaInfoBody> {
             Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: Color.fromARGB(255, 44, 42, 42)),
+                  color: const Color.fromARGB(255, 44, 42, 42)),
               height: height * 0.15,
               width: width,
               child: SingleChildScrollView(
