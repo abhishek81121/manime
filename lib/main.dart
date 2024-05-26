@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             appBarTheme: const AppBarTheme(
-                backgroundColor: Color.fromARGB(255, 228, 85, 114)),
+                backgroundColor: Color.fromARGB(255, 177, 213, 105)),
             filledButtonTheme: FilledButtonThemeData(
                 style: FilledButton.styleFrom(
                     backgroundColor: const Color(0xFFff2c55))),

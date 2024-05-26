@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manime/business/list_chapter/bloc/list_chapter_bloc.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -8,13 +7,12 @@ class MangaInfoBody extends StatefulWidget {
   final String mangaId;
   final String imageUrl;
   final String title;
-  final String description;
+
   const MangaInfoBody(
       {super.key,
       required this.imageUrl,
       required this.mangaId,
-      required this.title,
-      required this.description});
+      required this.title});
 
   @override
   State<MangaInfoBody> createState() => _MangaInfoBodyState();
@@ -23,7 +21,8 @@ class MangaInfoBody extends StatefulWidget {
 class _MangaInfoBodyState extends State<MangaInfoBody> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double height =
+        MediaQuery.of(context).size.height - AppBar().preferredSize.height;
     double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(0),
@@ -96,25 +95,38 @@ class _MangaInfoBodyState extends State<MangaInfoBody> {
                       height: height * 0.5,
                       child: ListView.builder(
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 51, 50, 50),
-                                    borderRadius: BorderRadius.circular(8)),
-                                height: height * 0.1,
+                            if (index < state.listChapter.data.length) {
+                              return GestureDetector(
+                                onTap: () {},
                                 child: Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Text(
-                                    "Chapter :${state.listChapter.data[index].attributes.chapter}",
-                                    style: TextStyle(color: Colors.white),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 51, 50, 50),
+                                        borderRadius: BorderRadius.circular(8)),
+                                    height: height * 0.1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Text(
+                                        "Chapter :${state.listChapter.data[index].attributes.chapter}",
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
+                              );
+                            } else {
+                              return SizedBox(
+                                height: height * 0.05,
+                                child: FilledButton.tonal(
+                                    onPressed: () {},
+                                    child: const Text("Load More chapters")),
+                              );
+                            }
                           },
-                          itemCount: state.listChapter.data.length),
+                          itemCount: state.listChapter.data.length + 1),
                     );
                   } else {
                     return const Center(
