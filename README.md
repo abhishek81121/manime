@@ -6,13 +6,13 @@ A new Flutter project to read manhwa
 
 1. Run the command 'flutter pub get'
 2. Run the command to generate the android or ios folder 'flutter create . --platform=android'  
-   or 'flutter create . --platform=android'.
-3. Create a firebase project and then intiallize google authentication service in it
+   or 'flutter create . --platform=ios'.
+3. Create a firebase project and then intialize google authentication service on it
 4. Install the firebase CLI and login on the local machine
 5. Insure that the flutter sdk is installed
 6. Run the command: 'dart pub global activate flutterfire_cli'
 7. Run the Command 'flutterfire configure --project=<Your Project Identifier>'
-8. Run the Command 'flutter run' if erroe occurs asking you to enable multidex support enable
+8. Run the Command 'flutter run' if error occurs asking you to enable multidex support enable
    it and then stop the app.
 9. Navigate to the android folder and run the command './gradlew signingReport'
 10. It will generate the SHA-1 and SHA-256 key add it to the firebase android app By going to
