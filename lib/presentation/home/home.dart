@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:manime/data/models/manga_search/manga_search.dart';
-import 'package:manime/data/repository/manga_search/manga_search_repository.dart';
 import 'package:manime/presentation/components/appbar.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
