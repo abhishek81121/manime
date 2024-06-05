@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:manime/data/models/chapter_image/chapter_image.dart';
+import 'package:manime/data/models/chapter_images_metadat/chapter_images_metadata.dart';
 
 class ChapterImageList {
   ChapterImageList();
@@ -8,7 +8,7 @@ class ChapterImageList {
     Response response =
         await dio.get('https://api.mangadex.org/at-home/server/$chapterId');
     if (response.statusCode == 200) {
-      return ChapterImage.fromJson(response.data);
+      return ChapterImagesMetadata.fromJson(response.data);
     } else {
       return null;
     }
