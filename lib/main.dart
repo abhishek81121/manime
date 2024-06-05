@@ -7,6 +7,7 @@ import 'package:manime/business/connection/bloc/connection_bloc.dart';
 import 'package:manime/firebase_options.dart';
 import 'package:manime/presentation/home/home.dart';
 import 'package:manime/presentation/login/login.dart';
+import 'package:manime/presentation/manga_images/images.dart';
 import 'package:manime/presentation/manga_info/manga_info.dart';
 import 'package:manime/presentation/no_connection/no_connection.dart';
 
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
             '/': (context) => const LoginScreen(),
             '/home': (context) => const HomePage(),
             '/home/mangainfo': (context) => const MangaInfo(),
+            '/home/mangainfo/images': (context) => const MangaImages(),
             '/noConnection': (context) => const Noconnection(),
           }),
     );
