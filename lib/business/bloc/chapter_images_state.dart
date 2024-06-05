@@ -9,11 +9,11 @@ sealed class ChapterImagesState extends Equatable {
 
 final class ChapterImagesInitial extends ChapterImagesState {}
 
-final class ChapterImagesLoading extends ChapterImagesState {}
+final class ChapterImagesListFetching extends ChapterImagesState {}
 
-final class ChapterImagedFetched extends ChapterImagesState {
+final class ChapterImagesListFetched extends ChapterImagesState {
   ChapterImagesMetadata chapterImagesMetadata;
-  ChapterImagedFetched({required this.chapterImagesMetadata});
+  ChapterImagesListFetched({required this.chapterImagesMetadata});
   @override
   List<Object> get props => [chapterImagesMetadata];
 }

@@ -8,11 +8,12 @@ part 'chapter_images_state.dart';
 
 class ChapterImagesBloc extends Bloc<ChapterImagesEvent, ChapterImagesState> {
   ChapterImagesBloc() : super(ChapterImagesInitial()) {
-    on<ChapterImagesEvent>((event, emit) async {
-      emit(ChapterImagesLoading());
+    on<ChapterImagesIntialEvent>((event, emit) async {
+      emit(ChapterImagesListFetching());
       ChapterImagesMetadata chapterImagesMetadata =
           await ChapterImageList().getMangaImagesList(event.chapterId);
-      emit(ChapterImagedFetched(chapterImagesMetadata: chapterImagesMetadata));
+      emit(ChapterImagesListFetched(
+          chapterImagesMetadata: chapterImagesMetadata));
     });
   }
 }
