@@ -97,7 +97,14 @@ class _MangaInfoBodyState extends State<MangaInfoBody> {
                           itemBuilder: (context, index) {
                             if (index < state.listChapter.data.length) {
                               return GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, '/home/mangainfo/images',
+                                      arguments: {
+                                        'chapterId':
+                                            state.listChapter.data[index].id
+                                      });
+                                },
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
